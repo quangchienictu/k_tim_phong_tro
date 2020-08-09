@@ -198,19 +198,70 @@ function time_elapsed_string($datetime, $full = false) {
 											</div>
 										</div>
 										@endforeach
-										<ul class="pagination pull-right">
-											@if($listmotelroom->currentPage() != 1)
-												<li><a href="{{ $listmotelroom->url($listmotelroom->currentPage() -1) }}">Trước</a></li>
-											@endif
-											@for($i= 1 ; $i<= $listmotelroom->lastPage(); $i++)
-										  	<li class=" {{ ($listmotelroom->currentPage() == $i )? 'active':''}}">
-										  		<a href="{{ $listmotelroom->url($i) }}">{{ $i }}</a>
-										  	</li>
-										  	@endfor
-											@if($listmotelroom->currentPage() != $listmotelroom->lastPage())
-												<li><a href="{{ $listmotelroom->url($listmotelroom->currentPage() +1) }}">Sau</a></li>
-											@endif
+										
+									<center>
+									@if ($listmotelroom->hasPages())
+										<ul class="pagination" role="navigation">
+										    {{-- Previous Page Link --}}
+										    @if ($listmotelroom->onFirstPage())
+										        <li class="page-item disabled" aria-disabled="true" aria-label="@lang('pagination.previous')">
+										            <span class="page-link" aria-hidden="true">&lsaquo;</span>
+										        </li>
+										    @else
+										        <li class="page-item">
+										            <a class="page-link" href="{{ $listmotelroom->previousPageUrl() }}" rel="prev" aria-label="@lang('pagination.previous')">&lsaquo;</a>
+										        </li>
+										    @endif
+
+										    <?php
+										        $start = $listmotelroom->currentPage() - 2; // show 3 pagination links before current
+										        $end = $listmotelroom->currentPage() + 2; // show 3 pagination links after current
+										        if($start < 1) {
+										            $start = 1; // reset start to 1
+										            $end += 1;
+										        } 
+										        if($end >= $listmotelroom->lastPage() ) $end = $listmotelroom->lastPage(); // reset end to last page
+										    ?>
+
+										    @if($start > 1)
+										        <li class="page-item">
+										            <a class="page-link" href="{{ $listmotelroom->url(1) }}">{{1}}</a>
+										        </li>
+										        @if($listmotelroom->currentPage() != 4)
+										            {{-- "Three Dots" Separator --}}
+										            <li class="page-item disabled" aria-disabled="true"><span class="page-link">...</span></li>
+										        @endif
+										    @endif
+										        @for ($i = $start; $i <= $end; $i++)
+										            <li class="page-item {{ ($listmotelroom->currentPage() == $i) ? ' active' : '' }}">
+										                <a class="page-link" href="{{ $listmotelroom->url($i) }}">{{$i}}</a>
+										            </li>
+										        @endfor
+										    @if($end < $listmotelroom->lastPage())
+										        @if($listmotelroom->currentPage() + 3 != $listmotelroom->lastPage())
+										            {{-- "Three Dots" Separator --}}
+										            <li class="page-item disabled" aria-disabled="true"><span class="page-link">...</span></li>
+										        @endif
+										        <li class="page-item">
+										            <a class="page-link" href="{{ $listmotelroom->url($listmotelroom->lastPage()) }}">{{$listmotelroom->lastPage()}}</a>
+										        </li>
+										    @endif
+
+										    {{-- Next Page Link --}}
+										    @if ($listmotelroom->hasMorePages())
+										        <li class="page-item">
+										            <a class="page-link" href="{{ $listmotelroom->nextPageUrl() }}" rel="next" aria-label="@lang('pagination.next')">&rsaquo;</a>
+										        </li>
+										    @else
+										        <li class="page-item disabled" aria-disabled="true" aria-label="@lang('listmotelroom.next')">
+										            <span class="page-link" aria-hidden="true">&rsaquo;</span>
+										        </li>
+										    @endif
 										</ul>
+										@endif
+									</center>
+
+
 									</div>
 									<div class="col-md-4">
 										<img src="images/banner-1.png" width="100%">
@@ -299,4 +350,7 @@ function time_elapsed_string($datetime, $full = false) {
 	</script>
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCzlVX517mZWArHv4Dt3_JVG0aPmbSE5mE&callback=initMap"
 	async defer></script>
+	<script type="text/javascript">
+		
+	</script>
 	@endsection

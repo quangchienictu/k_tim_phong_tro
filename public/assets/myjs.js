@@ -65,7 +65,7 @@ function searchMotelajax(){
 										(function(phongtro, data){
 											var content = '<div id="iw-container">' +
 											'<img height="200px" width="300" src="uploads/images/'+data.image+'">'+
-											'<a href="detail/'+data.id+'"><div class="iw-title">' + data.title +'</div></a>' +
+											'<a href="phongtro/'+data.slug+'"><div class="iw-title">' + data.title +'</div></a>' +
 											'<p><i class="fas fa-map-marker" style="color:#003352"></i> '+ data.address +'<br>'+
 											'<br>Phone. ' +data.phone +'</div>';
 

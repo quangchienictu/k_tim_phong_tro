@@ -19,7 +19,7 @@ class MotelController extends Controller
 		foreach ($getmotel as $room) {
 			$arrlatlng = json_decode($room->latlng,true);
 			$arrImg = json_decode($room->images,true);
-			$arr_result_search[] = ["id" =>$room->id,"lat"=> $arrlatlng[0],"lng"=> $arrlatlng[1],"title"=>$room->title,"address"=> $room->address,"image"=>$arrImg[0],"phone"=>$room->phone];
+			$arr_result_search[] = ["id" =>$room->id,"lat"=> $arrlatlng[0],"lng"=> $arrlatlng[1],"title"=>$room->title,"address"=> $room->address,"image"=>$arrImg[0],"phone"=>$room->phone,"slug"=>$room->slug];
 		}
 		return json_encode($arr_result_search);
 	}

@@ -58,9 +58,26 @@ function time_elapsed_string($datetime, $full = false) {
 </div>
 <div class="container">
 	<div class="row">
-		<div class="col-md-8">
+		<div class="col-md-8 mb-4">
 			<h1 class="entry-title entry-prop">{{ $motelroom->title }}</h1>
-
+			<br>
+			<div class="row " style="margin-top:20px;">
+				<div class="col-md-12">
+						@php
+						if($svg>0){
+							for($i=0;$i<$svg;$i++){
+							echo '<i class="fas fa-star" style="color:#ff9948;"></i>';
+							}
+						}else{
+							for($i=0;$i<5;$i++){
+								echo '<i class="fas fa-star"></i>';
+							}
+						}
+					
+											
+			@endphp
+				</div>
+			</div>
 			<hr>
 			<div class="row">
 				<div class="col-md-6">
@@ -77,6 +94,7 @@ function time_elapsed_string($datetime, $full = false) {
 			<hr>
 			<div class="detail">
 				<p><strong>Địa chỉ: {{ $motelroom->address }}</strong><br></p>
+				
 				<p>
 					<strong>Giá phòng: </strong><span class="price_area"><?php echo number_format($motelroom->price); ?>  <span class="price_label">VND</span></span>
 					<strong><i class="fas fa-street-view"></i> Diện tích: </strong><span> {{$motelroom->area}} m <sup>2</sup> </span>
@@ -229,9 +247,10 @@ function time_elapsed_string($datetime, $full = false) {
 						<input type="radio" name="baocao" value="2">
 						<span class="checkround"></span>
 					</label>
-					
+					<br>
+					<button class="btn btn-danger" type="submit">Gửi báo cáo</button>
 				</form>
-				<button class="btn btn-danger">Gửi báo cáo</button>
+				
 			</div>
 			@endif
 			<img src="images/banner-1.png" width="100%" style="margin-top: 20px">

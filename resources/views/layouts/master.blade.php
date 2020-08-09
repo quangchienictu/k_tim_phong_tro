@@ -20,6 +20,7 @@
 	<script src="assets/pgwslider/pgwslider.min.js" type="text/javascript"></script>
 	<link rel="stylesheet" href="assets/pgwslider/pgwslider.min.css">
 	
+	
 <!-- sortable.min.js is only needed if you wish to sort / rearrange files in initial preview. 
     This must be loaded before fileinput.min.js -->
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.8/js/plugins/sortable.min.js" type="text/javascript"></script>

@@ -20,7 +20,7 @@ Route::get('/', function () {
     $categories = Categories::all();
     $hot_motelroom = Motelroom::where('approve',1)->where('status',0)->limit(6)->orderBy('count_view','desc')->get();
     $map_motelroom = Motelroom::where('approve',1)->where('status',0)->get();
-	$listmotelroom = Motelroom::where('approve',1)->where('status',0)->paginate(4);
+	$listmotelroom = Motelroom::where('approve',1)->where('status',0)->paginate(5);
     return view('home.index',[
     	'district'=>$district,
         'categories'=>$categories,
@@ -71,11 +71,20 @@ Route::get('/phongtro/{slug}',function($slug){
     $room = Motelroom::findBySlug($slug);
     $room->count_view = $room->count_view +1;
     $room->save();
+    $cout_rating = rating::where('id_motel',$room->id)->where('status',1)->get()->count();
+    $sum_rating =rating::where('id_motel',$room->id)->where('status',1)->sum('rate');
+     $svg = 0;
+    if($cout_rating==0||$sum_rating==0){
+        $svg = 0;
+    }else{
+         $svg = $sum_rating/$cout_rating;
+
+    }
     $rating =rating::where('id_motel',$room->id)->where('status',1) ->orderBy('created_at', 'desc')->limit(10)->get();
     $categories = Categories::all();
    
 //    dd(json_decode($room->latlng,true));
-    return view('home.detail',['motelroom'=>$room, 'categories'=>$categories,'rating'=>$rating]);
+    return view('home.detail',['motelroom'=>$room, 'categories'=>$categories,'rating'=>$rating,'svg'=>$svg]);
 });
 Route::get('/report/{id}','MotelController@userReport')->name('user.report');
 Route::get('/motelroom/del/{id}','MotelController@user_del_motel');
